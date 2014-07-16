@@ -1,6 +1,14 @@
 # MadId
 
-TODO: Write a gem description
+Will can help you to inject easy identifiers into your `ActiveRecord` models.
+
+It will:
+
+  * set up a `before_save` callback to set `identifier`
+  * override `to_param` to return `identifier`
+  * give you a `short_identifer` that returns the first 12 chars of `identifier`
+
+Rightnow its very opinonated and not configurable in any way, this might change.
 
 ## Installation
 
@@ -18,7 +26,26 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Rails
+
+    class YourModel < ActiveRecord::Base
+      identify_with :foo
+    end
+
+after you create the object it will have the `identifier` attribute set to
+
+    "foo-<UUID>"
+
+### Plain
+
+If your not using Rails you'll have to include `MadId` on your own
+
+    class YourModel < ActiveRecord::Base
+      include MadID
+
+      identify_with :baz
+    end
+
 
 ## Contributing
 
