@@ -4,7 +4,8 @@ module MadId
     extend ActiveSupport::Concern
 
     included do
-      before_save :set_identifier, on: :create
+      before_create :set_identifier
+      attr_readonly :identifier
 
       def self.object_identifier_prefix
         @identifier
