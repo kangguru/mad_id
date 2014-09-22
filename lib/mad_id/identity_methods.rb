@@ -1,4 +1,4 @@
-module MadId
+module MadID
 
   module IdentityMethods
     extend ActiveSupport::Concern

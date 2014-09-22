@@ -5,7 +5,7 @@ require 'mad_id/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "mad_id"
-  spec.version       = MadId::VERSION
+  spec.version       = MadID::VERSION
   spec.authors       = ["Lars Brillert"]
   spec.email         = ["lars@railslove.com"]
   spec.summary       = %q{Adds prefixed identifiers to your models.}

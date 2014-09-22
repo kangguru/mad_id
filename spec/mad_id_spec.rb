@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 class Pony < ActiveRecord::Base
-  include MadId
+  include MadID
 end
 
 class LittlePony < Pony
   identify_with :pny
 end
 
-describe MadId do
+describe MadID do
 
   it 'inserts #identify_with' do
     expect(Pony.respond_to?(:identify_with)).to be(true)
