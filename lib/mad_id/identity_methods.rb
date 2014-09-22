@@ -13,7 +13,7 @@ module MadID
     end
 
     def set_identifier
-      self.identifier = "#{self.class.object_identifier_prefix}-#{SecureRandom.uuid}"[0..34]
+      self.identifier = "#{self.class.object_identifier_prefix}-#{SecureRandom.uuid}"[0..34].downcase
     end
 
     def short_identifier
@@ -23,7 +23,6 @@ module MadID
     def to_param
       self.identifier
     end
-
   end
 
 end
