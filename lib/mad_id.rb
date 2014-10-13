@@ -18,7 +18,7 @@ module MadID
   included do
     def self.identify_with(value)
       @identifier = value
-      MadID.registry[value] = self
+      MadID.registry[value.to_s] = self
       self.send(:include, MadID::IdentityMethods)
     end
   end
