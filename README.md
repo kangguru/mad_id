@@ -46,6 +46,12 @@ If your not using Rails you'll have to include `MadId` on your own
       identify_with :baz
     end
 
+### Registry
+
+You can access all registered identifiers and the associated class via MadID's registry
+
+    MadID.registry
+    # => { 'foo' => YourModel }
 
 ## Contributing
 

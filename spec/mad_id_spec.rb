@@ -65,6 +65,11 @@ describe MadID do
         end
       end
     end
+  end
 
+  describe 'Registry' do
+    it 'includes identifiable objects with stringified key' do
+      expect(MadID.registry).to include('pny' => LittlePony)
+    end
   end
 end
