@@ -10,11 +10,16 @@ require "mad_id/railtie" if defined?(Rails)
 module MadID
   extend ActiveSupport::Concern
 
+  @registry = {}
+  class << self
+    attr_accessor :registry
+  end
+
   included do
     def self.identify_with(value)
       @identifier = value
+      MadID.registry[value] = self
       self.send(:include, MadID::IdentityMethods)
     end
   end
-
 end
