@@ -8,6 +8,10 @@ class LittlePony < Pony
   identify_with :pny
 end
 
+class GreatPony < Pony
+  identify_with :grtpny
+end
+
 describe MadID do
 
   it 'inserts #identify_with' do
@@ -71,5 +75,20 @@ describe MadID do
     it 'includes identifiable objects with stringified key' do
       expect(MadID.registry).to include('pny' => LittlePony)
     end
+  end
+
+  describe 'Locator' do
+    let!(:little_pony) { LittlePony.create }
+    let!(:great_pony) { GreatPony.create }
+
+    it 'locate the little pony just by the identifier' do
+      expect(MadID.locate(little_pony.identifier)).to eq(little_pony)
+    end
+
+    it 'locate the great pony just by the identifier' do
+      binding
+      expect(MadID.locate(great_pony.identifier)).to eq(great_pony)
+    end
+
   end
 end

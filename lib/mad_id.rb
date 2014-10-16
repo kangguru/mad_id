@@ -13,6 +13,11 @@ module MadID
   @registry = {}
   class << self
     attr_accessor :registry
+
+    def locate(id)
+      prefix, _ = id.split('-', 2)
+      registry[prefix].find_by_mad_id!(id)
+    end
   end
 
   included do
@@ -20,6 +25,7 @@ module MadID
       @identifier = value
       MadID.registry[value.to_s] = self
       self.send(:include, MadID::IdentityMethods)
+      self.extend(MadID::FinderMethods)
     end
   end
 end
