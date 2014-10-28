@@ -53,6 +53,11 @@ You can access all registered identifiers and the associated class via MadID's r
     MadID.registry
     # => { 'foo' => YourModel }
 
+### Locator
+
+    MadID.locate("pny-1312313412")
+    # => #Object:Pony:1312313412
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/mad_id/fork )
