@@ -81,14 +81,31 @@ describe MadID do
     let!(:little_pony) { LittlePony.create }
     let!(:great_pony) { GreatPony.create }
 
-    it 'locate the little pony just by the identifier' do
-      expect(MadID.locate(little_pony.identifier)).to eq(little_pony)
-    end
+    describe 'locate' do
+      it 'locate the little pony just by the identifier' do
+        expect(MadID.locate(little_pony.identifier)).to eq(little_pony)
+      end
 
-    it 'locate the great pony just by the identifier' do
-      binding
-      expect(MadID.locate(great_pony.identifier)).to eq(great_pony)
-    end
+      it 'locate the great pony just by the identifier' do
+        expect(MadID.locate(great_pony.identifier)).to eq(great_pony)
+      end
 
+      it 'returns nil if no klass is found for the identifier' do
+        expect(MadID.locate("noo-getting-cold")).to be_nil
+      end
+
+      it 'returns nil if nothing is found' do
+        expect(MadID.locate("pny-no-pony-there")).to be_nil
+      end
+    end
+    describe 'locate!' do
+      it 'raises an error if no class is found' do
+        expect { MadID.locate!("noo-class-there") }.to raise_error(KeyError)
+      end
+
+      it 'raises an error if no record is found' do
+        expect { MadID.locate!("pny-class-there") }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
   end
 end

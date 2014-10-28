@@ -15,8 +15,17 @@ module MadID
     attr_accessor :registry
 
     def locate(id)
-      prefix, _ = id.split('-', 2)
-      registry[prefix].find_by_mad_id!(id)
+      prefix, _ = id.to_s.split('-', 2)
+      if klass = registry[prefix]
+        klass.find_by_mad_id(id)
+      else
+        nil
+      end
+    end
+
+    def locate!(id)
+      prefix, _ = id.to_s.split('-', 2)
+      registry.fetch(prefix).find_by_mad_id!(id)
     end
   end
 
