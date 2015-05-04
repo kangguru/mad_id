@@ -30,11 +30,12 @@ module MadID
   end
 
   included do
-    def self.identify_with(value)
+    extend(MadID::FinderMethods)
+    def self.identify_with(value, options = {})
+      self.mad_id_column = options[:column] || 'identifier'
       @identifier = value
       MadID.registry[value.to_s] = self
       self.send(:include, MadID::IdentityMethods)
-      self.extend(MadID::FinderMethods)
     end
   end
 end
