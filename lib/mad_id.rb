@@ -30,10 +30,11 @@ module MadID
   end
 
   included do
-    def self.identify_with(value)
+    def self.identify_with(value, options = {})
       @identifier = value
       MadID.registry[value.to_s] = self
       self.send(:include, MadID::IdentityMethods)
+      self.send(:include, MadID::IdentityMethods::UrlMethods) unless options[:to_param] == false # include by default
       self.extend(MadID::FinderMethods)
     end
   end

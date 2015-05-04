@@ -20,9 +20,12 @@ module MadID
       self.identifier[0..11]
     end
 
-    def to_param
-      self.identifier
+    module UrlMethods
+      def to_param
+        self.identifier
+      end
     end
+
   end
 
 end
