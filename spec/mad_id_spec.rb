@@ -9,7 +9,7 @@ class LittlePony < Pony
 end
 
 class GreatPony < Pony
-  identify_with :grtpny
+  identify_with :grtpny, to_param: false
 end
 
 class Dog < ActiveRecord::Base
@@ -90,6 +90,16 @@ describe MadID do
           expect{ subject.update(identifier: 'FOOBAR')}.not_to change{ subject.reload.identifier }
         end
       end
+    end
+  end
+
+  describe "to param" do
+    let!(:little_pony) { LittlePony.create }
+    let!(:great_pony) { GreatPony.create }
+
+    it do
+      expect(little_pony.to_param).to eql(little_pony.identifier)
+      expect(great_pony.to_param).to eql(great_pony.id.to_s)
     end
   end
 

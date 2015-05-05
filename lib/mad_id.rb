@@ -36,6 +36,7 @@ module MadID
       @identifier = value
       MadID.registry[value.to_s] = self
       self.send(:include, MadID::IdentityMethods)
+      self.send(:include, MadID::IdentityMethods::UrlMethods) unless options[:to_param] == false # include by default
     end
   end
 end
