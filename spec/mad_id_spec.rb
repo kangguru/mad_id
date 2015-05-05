@@ -12,10 +12,25 @@ class GreatPony < Pony
   identify_with :grtpny, to_param: false
 end
 
+class Dog < ActiveRecord::Base
+  include MadID
+  identify_with :dog, column: 'mad_id'
+end
+
 describe MadID do
 
   it 'inserts #identify_with' do
     expect(Pony.respond_to?(:identify_with)).to be(true)
+  end
+
+  describe 'default finders' do
+    let(:pony) { Pony.create }
+    it { expect(Pony.mad_id_column).to eql('id') }
+    it { expect(Pony.find_by_mad_id(pony.id)).to eql(pony) }
+  end
+
+  describe 'configurable column' do
+    it { expect(Dog.mad_id_column).to eql('mad_id') }
   end
 
   it 'wont set any callbacks' do
@@ -47,6 +62,13 @@ describe MadID do
       before { subject.set_identifier }
       it 'will start with the #identify_with argument' do
         expect(subject.identifier).to match(/pny-.+/)
+      end
+
+      describe 'custom identifier column' do
+        subject { Dog.new }
+        before { subject.set_identifier }
+        it { expect(subject.mad_id).to_not be_nil }
+        it { expect(subject.identifier).to eql(subject.mad_id) }
       end
     end
 

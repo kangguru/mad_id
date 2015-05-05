@@ -3,6 +3,12 @@ module MadID
   module IdentityMethods
     extend ActiveSupport::Concern
 
+    module UrlMethods
+      def to_param
+        self.identifier
+      end
+    end
+
     included do
       before_create :set_identifier
       attr_readonly :identifier
@@ -20,12 +26,13 @@ module MadID
       self.identifier[0..11]
     end
 
-    module UrlMethods
-      def to_param
-        self.identifier
-      end
+    def identifier=(value)
+      write_attribute(self.class.mad_id_column, value)
+    end
+
+    def identifier
+      read_attribute(self.class.mad_id_column)
     end
 
   end
-
 end
